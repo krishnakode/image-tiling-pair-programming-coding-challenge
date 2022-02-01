@@ -1,0 +1,21 @@
+{
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "test": "jest --collectCoverage=false"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^27.4.0",
+    "@types/sharp": "^0.29.5",
+    "jest": "^27.4.7",
+    "ts-jest": "^27.1.3",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "chalk": "^5.0.0",
+    "fs-extra": "^10.0.0",
+    "sharp": "^0.29.3"
+  }
+}
