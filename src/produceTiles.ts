@@ -31,7 +31,7 @@ const produceTiles = async (
 
     const resized = await image.resize(levelWidth, levelHeight);
 
-    // if the max dimension is greater than the maximum allowed tile size cut it up into tiles
+    // TODO: if the max dimension is greater than the maximum allowed tile size cut it up into tiles
     if (levelMaxDimension >= maxTileDimension) {
       const extracted = await resized.extract(
         0,
