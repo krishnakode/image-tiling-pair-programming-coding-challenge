@@ -16,3 +16,4 @@ codeship.aes
 .env.standalone
 yarn-error.log
 CertificateAuthorityCertificate.pem
+tiled-image

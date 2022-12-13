@@ -26,7 +26,7 @@ Make sure you have a read of the background information below as well and come r
 
 Our visualiser has a feature that allows customers to view the source photos that they uploaded as part of a survey. One survey may consist of several thousand large (30+ MB) photos. To make viewing snappy, we cut each photo up into tiles. Tiles are then generated for the photo at full resolution, at 1⁄2 resolution, at 1⁄4 resolution, at 1⁄8 resolution, and so on, until the photo cannot be shrunk further (i.e. its resolution is 1 × 1).
 
-For a photo with the resolution n × m, there will be `L = 1+ ⌈log2 max(n, m)⌉` levels of tiles; each level will cover the whole photo, but on the highest (lowest-numbered) level, the original image will be shrunk down to 1 × 1 pixels. By convention the levels start at 0 and go "down" to level L − 1, which has the most number of tiles that together have as many pixels as the original photo.
+For a photo with the resolution n × m, there will be `L = 1 + ⌈log2 max(n, m)⌉` levels of tiles; each level will cover the whole photo, but on the highest (lowest-numbered) level, the original image will be shrunk down to 1 × 1 pixels. By convention the levels start at 0 and go "down" to level L − 1, which has the most number of tiles that together have as many pixels as the original photo.
 
 As we don't want photos to get too large let's limit our tiles to a maximum of 256 × 256 pixels. Any level that is greater than this will then need to be split into tiles of 256 × 256.
 

@@ -29,7 +29,8 @@ describe("produceTiles", () => {
     mockResize.mockClear();
     mockExtract.mockClear();
   });
-  it("should produce a correctly sized tiles if square and image size is equal to tile size", async () => {
+
+  it("should produce the correct tiles if the image is square its size is equal to the maxTileDimension", async () => {
     await produceTiles(createImageMock({ width: 4, height: 4 }), "path", 4, {
       prepareLevelDirectory: async (path, level) => `${path}/${level}`,
     });
@@ -38,7 +39,9 @@ describe("produceTiles", () => {
     expect(mockSave).toHaveBeenCalledWith("path/1/0_0.png");
     expect(mockSave).toHaveBeenCalledWith("path/2/0_0.png");
   });
-  it("should produce a correct tiles for levels at greater resolution than maxTileDimension for square image", async () => {
+
+  it("should produce a the correct tiles if the image is square and its size is double the maxTileDimension", async () => {
+    // TODO: Write this test
     expect(true).toBe(false);
   });
 });
