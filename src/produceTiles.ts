@@ -10,7 +10,7 @@ const produceTiles = async (
 ) => {
   const { width, height } = image.properties;
   const maxDimension = Math.max(width, height);
-  const numberOfLevels = Math.ceil(1 + Math.log10(maxDimension));
+  const numberOfLevels = Math.ceil(1 + Math.log2(maxDimension));
 
   console.log(`Number of levels expected: ${numberOfLevels}`);
 
@@ -26,20 +26,34 @@ const produceTiles = async (
     );
 
     // TODO: should handle rectangles to get ratio of sides
-    const levelWidth = levelMaxDimension;
-    const levelHeight = levelMaxDimension;
+    const resized = await image.resize(levelMaxDimension, levelMaxDimension);
+    const levelWidth = resized.properties.width;
+    const levelHeight = resized.properties.height;
 
-    const resized = await image.resize(levelWidth, levelHeight);
-
+    console.log('levelMaxDimension:', levelMaxDimension, resized.properties);
     // TODO: if the max dimension is greater than the maximum allowed tile size cut it up into tiles
     if (levelMaxDimension >= maxTileDimension) {
-      const extracted = await resized.extract(
+      /* const extracted = await resized.extract(
         0,
         0,
         maxTileDimension,
         maxTileDimension
       );
-      await extracted.save(join(tileLevelDirectory, getImageName(0, 0)));
+      await extracted.save(join(tileLevelDirectory, getImageName(0, 0))); */
+      for (let i = 0; i < levelWidth; i = i+maxTileDimension) {
+        for (let j = 0; j < levelHeight; j = j+maxTileDimension) {
+          const widthToExtract = Math.min(levelWidth-i, maxTileDimension);
+          const heightToExtract = j+maxTileDimension > levelHeight ? levelHeight-j : maxTileDimension;
+          console.log('-->', i, j, widthToExtract, heightToExtract);
+          const extracted = await resized.extract(
+            i,
+            j,
+            widthToExtract,
+            heightToExtract,
+          );
+          await extracted.save(join(tileLevelDirectory, getImageName(i, j)));
+        }
+      }
     } else {
       await resized.save(join(tileLevelDirectory, getImageName(0, 0)));
     }

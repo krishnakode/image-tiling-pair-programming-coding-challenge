@@ -20,3 +20,23 @@ export const prepareLevelDirectory = async (
 };
 
 export const getImageName = (x: number, y: number) => `${x}_${y}.png`;
+
+export const parseArgs = async (args: string[] | any[]) => {
+  const imagePath = args[0];
+  const maxTileDimension = args[1] ? new RegExp('^\d+$').test(args[1]);
+  if (typeof imagePath !== "string") {
+    throw Error("Must pass path to image as first argument to script.");
+  }
+  if (typeof maxTileDimension !== "number") {
+    throw Error("Must pass path to image as first argument to script.");
+  }
+  const exists = await fs.pathExists(imagePath);
+  if (!exists) {
+    throw Error(
+      `Path ${imagePath} does not exist. Please check the path and try again.`
+    );
+  }
+  return {
+    imagePath,
+  };
+};
